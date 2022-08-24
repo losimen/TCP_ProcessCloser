@@ -33,7 +33,7 @@ public:
     static std::vector<Process> getListOfProcesses();
     static Process getProccessInfo(const int PID);
     static bool isProcessExists(const int PID);
-    static int killProccess(const int PID);
+    static bool killProccess(const int PID);
 };
 
 #endif //TEST_TEST_H

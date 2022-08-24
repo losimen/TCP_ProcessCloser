@@ -81,3 +81,13 @@ bool ProcessDispatcher::isProcessExists(const int PID) {
     }
 
 }
+
+
+bool killProccess(const int PID) {
+    if (!ProcessDispatcher::isProcessExists(PID)) {
+        return false;
+    }
+
+    kill(PID, SIGTERM);
+    return true;
+}
