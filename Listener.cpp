@@ -3,34 +3,36 @@
 
 int Listener::_initListeningSocket(const std::string &IPv4, const unsigned int port) {
     int listening = socket(AF_INET, SOCK_STREAM, 0);
-    if (listening == -1) {
-        std::cerr << "Can't create a socket! Quitting" << std::endl;
-        return -1;
-    }
+    if (listening == -1)
+        throw std::runtime_error(strerror(errno));
 
     sockaddr_in hint;
     hint.sin_family = AF_INET;
     hint.sin_port = htons(port);
     inet_pton(AF_INET, IPv4.c_str(), &hint.sin_addr);
 
-    bind(listening, (sockaddr*)&hint, sizeof(hint));
+    if (bind(listening, (sockaddr*)&hint, sizeof(hint)) == -1)
+        throw std::runtime_error(strerror(errno));
+
     return listening;
 }
 
 
 int Listener::_waitForConnection(int &listening) {
     std::cout << "Waiting for the connection " << std::endl;
-    listen(listening, SOMAXCONN);
+
+    if (listen(listening, SOMAXCONN) == -1)
+        throw std::runtime_error(strerror(errno));
 
     sockaddr_in client;
     socklen_t clientSize = sizeof(client);
  
     int clientSocket = accept(listening, (sockaddr*)&client, &clientSize);
  
-    char host[NI_MAXHOST];      // Client's remote name
-    char service[NI_MAXSERV];   // Service (i.e. port) the client is connect on
+    char host[NI_MAXHOST];     
+    char service[NI_MAXSERV]; 
  
-    memset(host, 0, NI_MAXHOST); // same as memset(host, 0, NI_MAXHOST);
+    memset(host, 0, NI_MAXHOST);
     memset(service, 0, NI_MAXSERV);
  
     inet_ntop(AF_INET, &client.sin_addr, host, NI_MAXHOST);
@@ -51,10 +53,11 @@ void Listener::startListen(const std::string &IPv4, const unsigned int port) {
     while (true)
     {
         memset(buf, 0, 4096);
-
         int bytesReceived = recv(clientSocket, buf, 4096, 0);
+
         if (bytesReceived == -1) {
-            std::cerr << "Error in recv(). Quitting" << std::endl;
+            close(clientSocket);
+            throw std::runtime_error(strerror(errno));
             break;
         }
 
