@@ -34,7 +34,7 @@ std::vector<Process> ProcessDispatcher::getListOfProcesses()  {
     {
         int PID = atoi(entry->d_name);
         if (PID != 0)
-            listOfProcesses.push_back(getProccessInfo(PID));
+            listOfProcesses.push_back(getProcessInfo(PID));
     }
 
     closedir(dir);
@@ -42,7 +42,7 @@ std::vector<Process> ProcessDispatcher::getListOfProcesses()  {
 }
 
 
-Process ProcessDispatcher::getProccessInfo(const int PID) {
+Process ProcessDispatcher::getProcessInfo(const int PID) {
     const int BUFFER_SIZE = 1000;
     char buffer[BUFFER_SIZE];
     ssize_t read;
@@ -72,7 +72,7 @@ Process ProcessDispatcher::getProccessInfo(const int PID) {
 bool ProcessDispatcher::isProcessExists(const int PID) {
     try
     {
-        ProcessDispatcher::getProccessInfo(PID);
+        ProcessDispatcher::getProcessInfo(PID);
         return true;
     }
     catch(const std::runtime_error& e)
@@ -83,7 +83,7 @@ bool ProcessDispatcher::isProcessExists(const int PID) {
 }
 
 
-bool killProccess(const int PID) {
+bool ProcessDispatcher::killProcess(const int PID) {
     if (!ProcessDispatcher::isProcessExists(PID)) {
         return false;
     }

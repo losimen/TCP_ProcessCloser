@@ -1,17 +1,15 @@
-#ifndef TEST_TEST_H
-#define TEST_TEST_H
+#ifndef PROCESS_DISPATCHER_H
+#define PROCESS_DISPATCHER_H
 
-#include <stdio.h>
+
+#include <string>
+#include <string.h>
+#include <iostream>
+#include <vector>
 
 #include <signal.h>
 #include <dirent.h>
 #include <sys/types.h>
-
-#include <string>
-#include <string.h>
-#include <algorithm>
-#include <iostream>
-#include <vector>
 
 
 struct Process {
@@ -31,9 +29,9 @@ private:
 
 public:
     static std::vector<Process> getListOfProcesses();
-    static Process getProccessInfo(const int PID);
+    static Process getProcessInfo(const int PID);
     static bool isProcessExists(const int PID);
-    static bool killProccess(const int PID);
+    static bool killProcess(const int PID);
 };
 
-#endif //TEST_TEST_H
+#endif //PROCESS_DISPATCHER_H

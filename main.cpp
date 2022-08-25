@@ -6,7 +6,7 @@ int main () {
     int PID = 545354451;
  
     if (ProcessDispatcher::isProcessExists(PID)) {
-        Process process = ProcessDispatcher::getProccessInfo(PID);
+        Process process = ProcessDispatcher::getProcessInfo(PID);
         std::cout << "PID: " << process.PID << std::endl;
         std::cout << "Name: " << process.name << std::endl;
         std::cout << "State: " << process.state << std::endl;
@@ -17,7 +17,7 @@ int main () {
     
     PID = 1;
     if (ProcessDispatcher::isProcessExists(PID)) {
-        Process process = ProcessDispatcher::getProccessInfo(PID);
+        Process process = ProcessDispatcher::getProcessInfo(PID);
         std::cout << "PID: " << process.PID << std::endl;
         std::cout << "Name: " << process.name << std::endl;
         std::cout << "State: " << process.state << std::endl;
@@ -35,7 +35,7 @@ int main () {
         std::cout << std::endl << std::endl;
     }
 
-    ProcessDispatcher::killProccess(PID);
+    std::cout << ProcessDispatcher::killProcess(133443) << std::endl;
 
     return 0;
 }
