@@ -2,4 +2,3 @@ main
 /.vscode/
 /build/
 main
-CMakeLists.txt
