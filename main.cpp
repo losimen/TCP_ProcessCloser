@@ -3,13 +3,13 @@
 int main()
 {
     Listener listener;
-    // listener.startListen("127.0.0.1", 54002);
+    // listener.startListen("127.0.0.1", 54011);
 
-    ReceivedData receivedData;
 
-    receivedData.parseData("<action>killProcess <data>gggg");
-    std::cout << "ACTION: " << receivedData.action<< std::endl;
-    std::cout << "DATA: " << receivedData.data  << std::endl;
- 
+    std::string buffer("<action>getProccess <data>10\0");
+    ReceivedData data;
+
+    data.parseData(buffer);
+    std::cout << data.data << std::endl;
     return 0;
 }

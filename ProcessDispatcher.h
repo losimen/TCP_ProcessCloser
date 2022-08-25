@@ -20,11 +20,7 @@
 
 #endif
 
-
-struct Process {
-    int PID;
-    std::string name;
-};
+#include "ServerTypes.h"
 
 
 class ProcessDispatcher {   

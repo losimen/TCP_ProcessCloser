@@ -6,6 +6,9 @@
 #include <algorithm>
 #include <iostream>
 
+#define A_KILL "kill"
+#define A_GET "getProcess"
+
 
 struct Process {
     int PID;
