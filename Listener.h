@@ -10,11 +10,15 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 
+#include "ServerTypes.h"
+
+
 class Listener {
 private:
+    ReceivedData receivedData;
     int _initListeningSocket(const std::string &IPv4, const unsigned int port);
     int _waitForConnection(int &listening);
-
+    
 public:
     void startListen(const std::string &IPv4 = "127.0.0.1", const unsigned int port = 5400);
 };

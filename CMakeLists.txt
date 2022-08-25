@@ -4,4 +4,6 @@ project(HTTP_PROCESS_CLOSER VERSION 0.1.0)
 add_executable(HTTP_PROCESS_CLOSER 
                                 main.cpp 
             ProcessDispatcher.h ProcessDispatcher.cpp
-            Listener.h          Listener.cpp)
+            Listener.h          Listener.cpp
+            HandlerRequest.h    HandlerRequest.cpp
+            ServerTypes.h       ServerTypes.cpp)

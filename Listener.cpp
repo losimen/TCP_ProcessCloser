@@ -1,6 +1,9 @@
 #include "Listener.h"
 
 
+
+
+
 int Listener::_initListeningSocket(const std::string &IPv4, const unsigned int port) {
     int listening = socket(AF_INET, SOCK_STREAM, 0);
     if (listening == -1)
@@ -58,6 +61,7 @@ void Listener::startListen(const std::string &IPv4, const unsigned int port) {
         if (bytesReceived == -1) {
             close(clientSocket);
             throw std::runtime_error(strerror(errno));
+            
             break;
         }
 
@@ -70,7 +74,8 @@ void Listener::startListen(const std::string &IPv4, const unsigned int port) {
             continue;
         }
 
-        std::cout << std::string(buf, 0, bytesReceived) << std::endl;
+        Listener::receivedData.parseData(buf);
+
         send(clientSocket, buf, bytesReceived + 1, 0);
     }
 }
