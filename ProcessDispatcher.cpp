@@ -1,5 +1,7 @@
 #include "ProcessDispatcher.h"
 
+
+#ifdef __linux__ 
 const std::string ProcessDispatcher::PROC_DIR = "/proc";
 const std::string ProcessDispatcher::PROC_STAT_FILE = "/status";
 
@@ -18,6 +20,19 @@ std::string ProcessDispatcher::parseProcessFileLine(std::string lineToParse) {
             result += el;
     
     return result;
+}
+
+
+bool ProcessDispatcher::isProcessExists(const int PID) {
+    try
+    {
+        ProcessDispatcher::getProcessInfo(PID);
+        return true;
+    }
+    catch (const std::runtime_error& e)
+    {
+        return false;
+    }
 }
 
 
@@ -59,27 +74,11 @@ Process ProcessDispatcher::getProcessInfo(const int PID) {
     while(fgets(buffer, BUFFER_SIZE, procStatFile)) {
         if (charStartsWith(buffer, "Name"))
             proccess.name = parseProcessFileLine(buffer);
-        else if (charStartsWith(buffer, "State"))
-            proccess.state = parseProcessFileLine(buffer);
     }
 
     fclose(procStatFile);
 
     return proccess;
-}
-
-
-bool ProcessDispatcher::isProcessExists(const int PID) {
-    try
-    {
-        ProcessDispatcher::getProcessInfo(PID);
-        return true;
-    }
-    catch(const std::runtime_error& e)
-    {
-        return false;
-    }
-
 }
 
 
@@ -91,3 +90,76 @@ bool ProcessDispatcher::killProcess(const int PID) {
     kill(PID, SIGTERM);
     return true;
 }
+
+
+#elif _WIN32
+
+const std::string ProcessDispatcher::UNKOWN = "<unknown>";
+
+
+std::vector<Process> ProcessDispatcher::getListOfProcesses() {
+    std::vector<Process> listOfProcesses;
+
+    DWORD processesPID[1024], amountOfBytes, amountOfProcesses;
+    unsigned int i;
+
+    if (!EnumProcesses(processesPID, sizeof(processesPID), &amountOfBytes))
+        throw std::runtime_error("Cannot get request list");
+
+    amountOfProcesses = amountOfBytes / sizeof(DWORD);
+
+    for (i = 0; i < amountOfProcesses; i++)
+    {
+        if (processesPID[i] != 0)
+        {
+            Process process = ProcessDispatcher::getProcessInfo(processesPID[i]);
+
+            if (process.name == UNKOWN)
+                continue;
+
+            listOfProcesses.push_back(process);
+        }
+            
+    }
+        
+    return listOfProcesses;
+}
+
+
+Process ProcessDispatcher::getProcessInfo(const int PID) {
+    Process process;
+    TCHAR processName[MAX_PATH] = TEXT("<unknown>");
+    HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, PID);
+
+    if (hProcess != nullptr) {
+        HMODULE hMod;
+        DWORD cbNeeded;
+
+        if (EnumProcessModules(hProcess, &hMod, sizeof(hMod), &cbNeeded))
+            GetModuleBaseName(hProcess, hMod, processName, sizeof(processName) / sizeof(TCHAR));
+    }
+
+    process.name = processName;
+    process.PID = PID;
+
+    CloseHandle(hProcess);
+    return process;
+}
+
+
+bool ProcessDispatcher::isProcessExists(const int PID) {
+    return ProcessDispatcher::getProcessInfo(PID).name != UNKOWN;
+}
+
+
+bool ProcessDispatcher::killProcess(const int PID) {
+    if (!ProcessDispatcher::isProcessExists(PID))
+        return false;
+
+    HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, false, PID);
+    TerminateProcess(hProcess, 1);
+    CloseHandle(hProcess);
+    return true;
+}
+
+#endif

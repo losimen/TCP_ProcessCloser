@@ -1,4 +1,8 @@
 main
 /.vscode/
+/.vs/
 /build/
 main
+/out/
+CMakePresets.json
+CMakeSettings.json
