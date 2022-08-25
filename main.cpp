@@ -1,41 +1,9 @@
-#include <iostream>
+#include "Listener.h"
 
-#include "ProcessDispatcher.h"
-
-int main () {
-    int PID = 545354451;
+int main()
+{
+    Listener listener;
+    listener.startListen("127.0.0.1", 54002);
  
-    if (ProcessDispatcher::isProcessExists(PID)) {
-        Process process = ProcessDispatcher::getProcessInfo(PID);
-        std::cout << "PID: " << process.PID << std::endl;
-        std::cout << "Name: " << process.name << std::endl;
-        std::cout << std::endl << std::endl;
-    } else {
-        std::cout << "Process doesn't exists" << std::endl;
-    }
-    
-    PID = 1;
-    if (ProcessDispatcher::isProcessExists(PID)) {
-        Process process = ProcessDispatcher::getProcessInfo(PID);
-        std::cout << "PID: " << process.PID << std::endl;
-        std::cout << "Name: " << process.name << std::endl;
-        std::cout << std::endl << std::endl;
-    } else {
-        std::cout << "Process doesn't exists" << std::endl;
-    }
-    
-
-    std::vector<Process> processes = ProcessDispatcher::getListOfProcesses();
-    for (auto proces: processes)
-    {
-        std::cout << "PID: " << proces.PID << std::endl;
-        std::cout << "Name: " << proces.name << std::endl;
-        std::cout << std::endl << std::endl;
-    }
-
-    std::cout << ProcessDispatcher::killProcess(4304) << std::endl;
-
-    std::cout << "end " << std::endl;
-
     return 0;
 }
