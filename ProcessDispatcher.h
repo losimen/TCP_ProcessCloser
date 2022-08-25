@@ -30,8 +30,8 @@ struct Process {
 class ProcessDispatcher {   
 #ifdef __linux__ 
 private:
-    static bool charStartsWith(const char *a, const char *b);
-    static std::string parseProcessFileLine(std::string lineToParse);
+    static bool _charStartsWith(const char *a, const char *b);
+    static std::string _parseProcessFileLine(std::string lineToParse);
 
     static const std::string PROC_DIR;
     static const std::string PROC_STAT_FILE;

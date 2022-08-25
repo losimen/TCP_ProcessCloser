@@ -6,12 +6,12 @@ const std::string ProcessDispatcher::PROC_DIR = "/proc";
 const std::string ProcessDispatcher::PROC_STAT_FILE = "/status";
 
 
-bool ProcessDispatcher::charStartsWith(const char *a, const char *b) {
+bool ProcessDispatcher::_charStartsWith(const char *a, const char *b) {
     return strncmp(a, b, strlen(b)) == 0;
 }
 
 
-std::string ProcessDispatcher::parseProcessFileLine(std::string lineToParse) {
+std::string ProcessDispatcher::_parseProcessFileLine(std::string lineToParse) {
     std::string result;
     lineToParse = lineToParse.substr(lineToParse.rfind(':')+1);
 
@@ -72,8 +72,8 @@ Process ProcessDispatcher::getProcessInfo(const int PID) {
 
     proccess.PID = PID;
     while(fgets(buffer, BUFFER_SIZE, procStatFile)) {
-        if (charStartsWith(buffer, "Name"))
-            proccess.name = parseProcessFileLine(buffer);
+        if (_charStartsWith(buffer, "Name"))
+            proccess.name = _parseProcessFileLine(buffer);
     }
 
     fclose(procStatFile);
