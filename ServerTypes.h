@@ -24,6 +24,9 @@ struct Process {
 };
 
 
+typedef std::vector <Process> ProcessList;
+
+
 struct Answer {
     std::string status;
     std::string data;

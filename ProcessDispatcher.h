@@ -37,7 +37,7 @@ private:
 #endif
 
 public:
-    static std::vector<Process> getListOfProcesses();
+    static ProcessList getListOfProcesses();
     static Process getProcessInfo(const int PID);
     static bool isProcessExists(const int PID);
     static bool killProcess(const int PID);

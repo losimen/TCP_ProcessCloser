@@ -36,8 +36,8 @@ bool ProcessDispatcher::isProcessExists(const int PID) {
 }
 
 
-std::vector<Process> ProcessDispatcher::getListOfProcesses()  {
-    std::vector<Process> listOfProcesses;
+ProcessList ProcessDispatcher::getListOfProcesses()  {
+    ProcessList listOfProcesses;
 
     struct dirent *entry;
     DIR *dir = opendir(PROC_DIR.c_str());
@@ -97,8 +97,8 @@ bool ProcessDispatcher::killProcess(const int PID) {
 const std::string ProcessDispatcher::UNKOWN = "<unknown>";
 
 
-std::vector<Process> ProcessDispatcher::getListOfProcesses() {
-    std::vector<Process> listOfProcesses;
+ProcessList ProcessDispatcher::getListOfProcesses() {
+    ProcessList listOfProcesses;
 
     DWORD processesPID[1024], amountOfBytes, amountOfProcesses;
     unsigned int i;
