@@ -78,13 +78,12 @@ void Listener::startListen(const std::string &IPv4, const unsigned int port) {
             Listener::receivedData.parseData(std::string(buf, 0, bytesReceived));
         }
         catch (std::runtime_error err) {
-            std::cerr << "ERROR" << err.what() << std::endl;
+            std::cerr << "ERROR: " << err.what() << std::endl;
             send(clientSocket, buf, bytesReceived + 1, 0);
             continue;
         }
-
-        // HandlerRequest::handleRequest(receivedData);
-
+        
+        HandlerRequest::handleRequest(receivedData);
         send(clientSocket, buf, bytesReceived + 1, 0);
     }
 }

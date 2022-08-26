@@ -18,15 +18,15 @@ void stripUnicode(std::string & str)
 void ReceivedData::parseData(std::string buffer) {
     stripUnicode(buffer);
     
-    std::cout << buffer << " " << buffer.length() << std::endl;
+    std::cout << "Received data: " << buffer << " | LEN: " << buffer.length() << std::endl;
 
     const unsigned int symbolsToCut = (buffer.rfind(F_DATA)-buffer.find(F_ACTION)-F_ACTION.length());
 
-    if (buffer.find(F_DATA) == std::string::npos || buffer.find(F_ACTION) == std::string::npos)
-         std::runtime_error("Invalid data format from client");
-    
+    std::cout <<  ((buffer.find(F_ACTION) == std::string::npos) || (buffer.find(F_DATA) == std::string::npos)) << std::endl;
 
+    if (buffer.find(F_DATA) == std::string::npos || buffer.find(F_ACTION) == std::string::npos)
+        throw std::runtime_error("Invalid data format from client");
+    
     ReceivedData::action = buffer.substr(8, symbolsToCut);
     ReceivedData::data = buffer.substr(buffer.find(F_DATA)+6);
-
 }
