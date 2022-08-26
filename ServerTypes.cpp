@@ -14,10 +14,9 @@ void stripUnicode(std::string & str)
     str.erase(remove_if(str.begin(),str.end(), invalidChar), str.end());  
 }
 
-// <action>getProccess<data>1
+// <action>getProcess<data>1
 void ReceivedData::parseData(std::string buffer) {
-    stripUnicode(buffer);
-    
+    stripUnicode(buffer);  
     std::cout << "Received data: " << buffer << " | LEN: " << buffer.length() << std::endl;
 
     const unsigned int symbolsToCut = (buffer.rfind(F_DATA)-buffer.find(F_ACTION)-F_ACTION.length());
@@ -29,4 +28,20 @@ void ReceivedData::parseData(std::string buffer) {
     
     ReceivedData::action = buffer.substr(8, symbolsToCut);
     ReceivedData::data = buffer.substr(buffer.find(F_DATA)+6);
+}
+
+
+void Answer::parse_A_GET_ONE(const int PID, const std::string &name) {
+    
+
+}
+
+
+std::string Answer::serializeData() {
+    std::string result; 
+
+    result = std::string("<status>") + Answer::status;
+    result += std::string("<data>") + Answer::data;
+
+    return result;
 }

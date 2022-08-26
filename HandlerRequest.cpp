@@ -2,7 +2,7 @@
 
 
 Answer HandlerRequest::handleRequest(const ReceivedData &receivedData) {
-    if (receivedData.action == A_GET)
+    if (receivedData.action == A_GET_ONE)
     {
         Process process = ProcessDispatcher::getProcessInfo(std::stoi(receivedData.data));
         std::cout << process.PID << " " << process.name << std::endl;
@@ -12,7 +12,6 @@ Answer HandlerRequest::handleRequest(const ReceivedData &receivedData) {
     else {
         std::cout << "unkown action " << std::endl;
     }
-
 
     return Answer();
 }

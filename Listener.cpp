@@ -46,17 +46,38 @@ int Listener::_waitForConnection(int &listening) {
 }
 
 
+Answer Listener::_processeRequest(const std::string &buffer) {
+    Answer answer;
+
+    try {
+        Listener::receivedData.parseData(buffer);
+        answer = HandlerRequest::handleRequest(receivedData);
+    }
+    catch (std::runtime_error err) {
+        std::cerr << "ERROR: " << err.what() << std::endl;
+
+        answer.status = S_FAIL;
+        answer.data = err.what();
+    }
+
+    return answer;
+}
+
+
 void Listener::startListen(const std::string &IPv4, const unsigned int port) {
+    // TODO: make it dynamic
+    const int LENGTH_BUF = 4096;
+
     std::cout << "Running server on address: " << IPv4 << ":" << port << std::endl;
 
     int listening = Listener::_initListeningSocket(IPv4, port);
     int clientSocket = Listener::_waitForConnection(listening);
-    char buf[4096];
+    char buf[LENGTH_BUF];
 
     while (true)
     {
-        memset(buf, 0, 4096);
-        int bytesReceived = recv(clientSocket, buf, 4096, 0);
+        memset(buf, 0, LENGTH_BUF);
+        int bytesReceived = recv(clientSocket, buf, LENGTH_BUF, 0);
 
         if (bytesReceived == -1) {
             close(clientSocket);
@@ -74,16 +95,13 @@ void Listener::startListen(const std::string &IPv4, const unsigned int port) {
             continue;
         }
 
-        try {
-            Listener::receivedData.parseData(std::string(buf, 0, bytesReceived));
-        }
-        catch (std::runtime_error err) {
-            std::cerr << "ERROR: " << err.what() << std::endl;
-            send(clientSocket, buf, bytesReceived + 1, 0);
-            continue;
-        }
-        
-        HandlerRequest::handleRequest(receivedData);
-        send(clientSocket, buf, bytesReceived + 1, 0);
+        Answer answer = Listener::_processeRequest(std::string(buf, 0, bytesReceived));
+        const std::string s_answer = answer.serializeData().c_str();
+        std::cout << s_answer << std::endl;
+
+        memset(buf, 0, LENGTH_BUF);
+        strcpy(buf, s_answer.c_str());
+
+        send(clientSocket, buf, s_answer.length() + 1, 0);
     }
 }
