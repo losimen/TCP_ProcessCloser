@@ -45,7 +45,7 @@ int Listener::_waitForConnection(int &listening) {
 
 Answer Listener::_processeRequest(const std::string &buffer) {
     Answer answer;
-
+    
     try {
         Listener::receivedData.parseData(buffer);
         answer = HandlerRequest::handleRequest(receivedData);

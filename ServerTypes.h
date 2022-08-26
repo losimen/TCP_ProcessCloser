@@ -24,7 +24,7 @@ struct Process {
 };
 
 
-typedef std::vector <Process> ProcessList;
+typedef std::vector<Process> ProcessList;
 
 
 struct Answer {

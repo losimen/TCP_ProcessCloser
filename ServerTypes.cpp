@@ -8,7 +8,7 @@ const std::string ReceivedData::F_ACTION  = "action";
 // <action>getProcess</action><data>1</data>
 void ReceivedData::parseData(std::string buffer) {    
     try {
-        ReceivedData::action = TagWorker::getTagContent(buffer, "action");        
+        ReceivedData::action = TagWorker::getTagContent(buffer, "action");     
         ReceivedData::data = TagWorker::getTagContent(buffer, "data");
     }
     catch (std::runtime_error err) {

@@ -43,7 +43,7 @@ ProcessList ProcessDispatcher::getListOfProcesses()  {
     DIR *dir = opendir(PROC_DIR.c_str());
 
     if (dir == NULL)
-        throw std::runtime_error("cannot open: " + PROC_DIR);
+        throw std::runtime_error("Cannot get process list");
     
     while ((entry = readdir(dir)) != NULL)
     {

@@ -8,6 +8,11 @@
 
 
 class HandlerRequest {
+private:
+    static void _request_GET_ONE(Answer &answer, const ReceivedData &receivedData);
+    static void _request_GET_ALL(Answer &answer, const ReceivedData &receivedData);
+    static void _request_KILL(Answer &answer, const ReceivedData &receivedData);
+
 public:
     static Answer handleRequest(const ReceivedData &receivedData);
 
