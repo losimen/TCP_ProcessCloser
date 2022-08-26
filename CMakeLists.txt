@@ -6,4 +6,5 @@ add_executable(HTTP_PROCESS_CLOSER
             ProcessDispatcher.h ProcessDispatcher.cpp
             Listener.h          Listener.cpp
             HandlerRequest.h    HandlerRequest.cpp
-            ServerTypes.h       ServerTypes.cpp)
+            ServerTypes.h       ServerTypes.cpp
+            TagWorker.h         TagWorker.cpp)
