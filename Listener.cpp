@@ -1,9 +1,6 @@
 #include "Listener.h"
 
 
-
-
-
 int Listener::_initListeningSocket(const std::string &IPv4, const unsigned int port) {
     int listening = socket(AF_INET, SOCK_STREAM, 0);
     if (listening == -1)
@@ -97,7 +94,6 @@ void Listener::startListen(const std::string &IPv4, const unsigned int port) {
 
         Answer answer = Listener::_processeRequest(std::string(buf, 0, bytesReceived));
         const std::string s_answer = answer.serializeData().c_str();
-        std::cout << s_answer << std::endl;
 
         memset(buf, 0, LENGTH_BUF);
         strcpy(buf, s_answer.c_str());

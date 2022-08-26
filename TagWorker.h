@@ -3,6 +3,8 @@
 
 #include <string>
 #include <algorithm>
+#include <iostream>
+
 
 class TagWorker {
 public:

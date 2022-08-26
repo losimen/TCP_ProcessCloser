@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <iostream>
 
+#include "TagWorker.h"
 
 // action list:
 #define A_KILL "kill"
@@ -26,8 +27,6 @@ struct Process {
 struct Answer {
     std::string status;
     std::string data;
-
-    void parse_A_GET_ONE(const int PID, const std::string &name);
 
     std::string serializeData();
 };

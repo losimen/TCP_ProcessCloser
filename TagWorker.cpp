@@ -14,9 +14,10 @@ std::string TagWorker::getTagContent(const std::string &buffer, const std::strin
     size_t start = buffer.find(tag);
     size_t end = buffer.find(tagEnd);
 
-    if (start != std::string::npos && end != std::string::npos) {
-        tagContent = buffer.substr(start + tag.length(), end - start - tag.length());
-    }
+    if (start == std::string::npos || end == std::string::npos)
+        throw std::runtime_error("Invalid tag");
+    
+    tagContent = buffer.substr(start + tag.length(), end - start - tag.length());
 
     return tagContent;
 }
