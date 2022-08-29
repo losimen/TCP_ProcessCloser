@@ -21,7 +21,7 @@ std::string Answer::serializeData() {
     std::string result; 
 
     result = std::string("<status>") + Answer::status + std::string("</status>");
-    result += std::string("<data>") + Answer::data + std::string("</data>");
+    result += std::string("<data>") + Answer::data + std::string("</data>") + std::string("\r\n");
 
     return result;
 }

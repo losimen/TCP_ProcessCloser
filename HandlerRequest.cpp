@@ -8,13 +8,13 @@ void HandlerRequest::_request_GET_ONE(Answer &answer, const ReceivedData &receiv
         process = ProcessDispatcher::getProcessInfo(std::stoi(receivedData.data));
     } catch(std::runtime_error err) {
         answer.data = TagWorker::createTag("info", std::string(err.what()));
-        answer.status = S_FAIL;
+        answer.status = STATUS_FAIL;
         return;
     }
 
     answer.data = TagWorker::createTag("PID", std::to_string(process.PID));
     answer.data += TagWorker::createTag("name", process.name);
-    answer.status = S_OK;
+    answer.status = STATUS_OK;
 }
 
 
@@ -24,11 +24,11 @@ void HandlerRequest::_request_GET_ALL(Answer &answer, const ReceivedData &receiv
         processList = ProcessDispatcher::getListOfProcesses();
     } catch(std::runtime_error err) {
         answer.data = TagWorker::createTag("info", err.what());
-        answer.status = S_FAIL;
+        answer.status = STATUS_FAIL;
     }
 
     std::string listData;
-    answer.status = S_OK;
+    answer.status = STATUS_OK;
     for (auto process: processList) {
         listData += TagWorker::createTag("PID", std::to_string(process.PID));
         listData += TagWorker::createTag("name", process.name);
@@ -40,10 +40,10 @@ void HandlerRequest::_request_GET_ALL(Answer &answer, const ReceivedData &receiv
 
 void HandlerRequest::_request_KILL(Answer &answer, const ReceivedData &receivedData) {
     if (ProcessDispatcher::killProcess(std::stoi(receivedData.data))) {
-        answer.status = S_OK;
+        answer.status = STATUS_OK;
         answer.data = TagWorker::createTag("info", "Success");
     } else {
-        answer.status = S_FAIL;
+        answer.status = STATUS_FAIL;
         answer.data = TagWorker::createTag("info", "Process doesn't exist");
     }   
 }
@@ -52,14 +52,14 @@ void HandlerRequest::_request_KILL(Answer &answer, const ReceivedData &receivedD
 Answer HandlerRequest::handleRequest(const ReceivedData &receivedData) {
     Answer answer;
 
-    if (receivedData.action == A_GET_ONE)
+    if (receivedData.action == ACTION_GET_ONE)
         HandlerRequest::_request_GET_ONE(answer, receivedData);
-    else if (receivedData.action == A_GET_ALL)
+    else if (receivedData.action == ACTION_GET_ALL)
         HandlerRequest::_request_GET_ALL(answer, receivedData);
-    else if (receivedData.action == A_KILL)
+    else if (receivedData.action == ACTION_KILL)
         HandlerRequest::_request_KILL(answer, receivedData);
     else {
-        answer.status = S_FAIL;
+        answer.status = STATUS_FAIL;
         answer.data = TagWorker::createTag("info", "Invalid operation");
     }
 

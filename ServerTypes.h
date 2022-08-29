@@ -9,13 +9,13 @@
 #include "TagWorker.h"
 
 // action list:
-#define A_KILL "kill"
-#define A_GET_ONE "getProcess"
-#define A_GET_ALL "getProcessList"
+#define ACTION_KILL "kill"
+#define ACTION_GET_ONE "getProcess"
+#define ACTION_GET_ALL "getProcessList"
 
 // stauts list:
-#define S_OK "OK"
-#define S_FAIL "FAIL"
+#define STATUS_OK "OK"
+#define STATUS_FAIL "FAIL"
 
 
 struct Process {

@@ -5,21 +5,21 @@
 #include <string.h>
 #include <string>
 #include <sys/types.h>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <arpa/inet.h>
+#include <WS2tcpip.h>
+#include <string>
+
+#pragma comment (lib, "ws2_32.lib")
 
 #include "../ServerTypes.h"
 #include "../HandlerRequest.h"
 
 class Listener {
-private:
     ReceivedData receivedData;
-    int _initListeningSocket(const std::string &IPv4, const unsigned int port);
-    int _waitForConnection(int &listening);
-    Answer _processeRequest(const std::string &buffer);
-    
+    void _initWinSock();
+    SOCKET _initListeningSocket(const std::string& IPv4, const unsigned int port);
+    SOCKET _waitForConnection(SOCKET& listening);
+    Answer _processeRequest(const std::string& buffer);
+
 public:
     void startListen(const std::string &IPv4 = "127.0.0.1", const unsigned int port = 5400);
 };
