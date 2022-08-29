@@ -53,7 +53,7 @@ Answer Listener::_processeRequest(const std::string &buffer) {
     catch (std::runtime_error err) {
         std::cerr << "ERROR: " << err.what() << std::endl;
 
-        answer.status = S_FAIL;
+        answer.status = STATUS_FAIL;
         answer.data = err.what();
     }
 
