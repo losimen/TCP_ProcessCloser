@@ -5,7 +5,7 @@ if (WIN32)
 add_executable(HTTP_PROCESS_CLOSER 
                                 main.cpp 
             WindowsAPI/ProcessDispatcher.h WindowsAPI/ProcessDispatcher.cpp
-            Listener.h          Listener.cpp
+            WindowsAPI/Listener.h          WindowsAPI/Listener.cpp
             HandlerRequest.h    HandlerRequest.cpp
             ServerTypes.h       ServerTypes.cpp
             TagWorker.h         TagWorker.cpp)
@@ -15,7 +15,7 @@ if (UNIX)
 add_executable(HTTP_PROCESS_CLOSER 
                                 main.cpp 
             LinuxAPI/ProcessDispatcher.h LinuxAPI/ProcessDispatcher.cpp
-            Listener.h          Listener.cpp
+            LinuxAPI/Listener.h          LinuxAPI/Listener.cpp
             HandlerRequest.h    HandlerRequest.cpp
             ServerTypes.h       ServerTypes.cpp
             TagWorker.h         TagWorker.cpp)

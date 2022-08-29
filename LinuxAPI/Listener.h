@@ -10,8 +10,8 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 
-#include "ServerTypes.h"
-#include "HandlerRequest.h"
+#include "../ServerTypes.h"
+#include "../HandlerRequest.h"
 
 class Listener {
 private:
