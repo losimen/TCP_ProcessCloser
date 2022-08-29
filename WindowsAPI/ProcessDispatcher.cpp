@@ -1,11 +1,6 @@
 #include "ProcessDispatcher.h"
 
 
-#ifdef __linux__ 
-const std::string ProcessDispatcher::PROC_DIR = "/proc";
-const std::string ProcessDispatcher::PROC_STAT_FILE = "/status";
-
-
 bool ProcessDispatcher::_charStartsWith(const char *a, const char *b) {
     return strncmp(a, b, strlen(b)) == 0;
 }
@@ -92,7 +87,6 @@ bool ProcessDispatcher::killProcess(const int PID) {
 }
 
 
-#elif _WIN32
 
 const std::string ProcessDispatcher::UNKOWN = "<unknown>";
 

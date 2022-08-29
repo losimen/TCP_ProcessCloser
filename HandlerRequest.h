@@ -4,7 +4,14 @@
 #include <string>
 
 #include "ServerTypes.h"
-#include "ProcessDispatcher.h"
+
+#ifdef __linux__ 
+#include "LinuxAPI/ProcessDispatcher.h"
+
+#elif _WIN32
+#include "WindowsAPI/ProcessDispatcher.h"
+#endif
+
 
 
 class HandlerRequest {
