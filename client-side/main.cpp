@@ -1,9 +1,9 @@
-#include <iostream>
+#include "ServerConnector.h"
 
 
-int main() {
-
-    std::cout << "Hello world" << std::endl;
+int main()
+{
+    ServerConnector::connectToTheServer("127.0.0.1", 54026);
 
     return 0;
 }
