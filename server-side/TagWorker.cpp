@@ -1,5 +1,6 @@
 #include "TagWorker.h"
 
+
 std::string TagWorker::createTag(const std::string& tagName, const::std::string &tagContent) {
     std::string tag = "<" + tagName + ">" + tagContent + "</" + tagName + ">";
     return tag;

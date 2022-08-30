@@ -8,7 +8,7 @@
 int main()
 {
     Listener listener;
-    listener.startListen("127.0.0.1", 54026);
+    listener.startListen();
 
     return 0;
 }

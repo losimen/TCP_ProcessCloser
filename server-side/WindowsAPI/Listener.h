@@ -10,8 +10,8 @@
 
 #pragma comment (lib, "ws2_32.lib")
 
-#include "../ServerTypes.h"
-#include "../HandlerRequest.h"
+#include "ServerTypes.h"
+#include "HandlerRequest.h"
 
 class Listener {
     ReceivedData receivedData;
