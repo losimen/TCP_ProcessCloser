@@ -30,8 +30,12 @@ void HandlerRequest::_request_GET_ALL(Answer &answer, const ReceivedData &receiv
     std::string listData;
     answer.status = STATUS_OK;
     for (auto process: processList) {
-        listData += TagWorker::createTag("PID", std::to_string(process.PID));
-        listData += TagWorker::createTag("name", process.name);
+        std::string itemData;
+        
+        itemData += TagWorker::createTag("PID", std::to_string(process.PID));
+        itemData += TagWorker::createTag("name", process.name);
+
+        listData += TagWorker::createTag("item", itemData);
     }
 
     answer.data = TagWorker::createTag("pList", listData);
