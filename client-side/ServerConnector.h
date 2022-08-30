@@ -2,13 +2,14 @@
 #define SERVER_CONNECTOR_H
 
 #include <iostream>
-#include <sys/types.h>
 #include <unistd.h>
 #include <sys/socket.h>
-#include <netdb.h>
 #include <arpa/inet.h>
 #include <string.h>
 #include <string>
+
+#include "ClientTypes.h"
+#include "ClientUI.h"
 
 
 class ServerConnector {
@@ -18,7 +19,7 @@ private:
     static void _establishConnection(int &sock, sockaddr_in &hint);
 
 public:
-    static void connectToTheServer(const std::string &IPv4 = "127.0.0.1", const unsigned int port = 5400);
+    static void connectToTheServer(const std::string &IPv4, const unsigned int port);
 
 };
 

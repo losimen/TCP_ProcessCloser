@@ -29,43 +29,50 @@ void ServerConnector::_establishConnection(int &sock, sockaddr_in &hint) {
 
 void ServerConnector::connectToTheServer(const std::string &IPv4, const unsigned int port) {
     // TODO: make it dynamic
-    const int LENGTH_BUF = 4096;
+    const int LENGTH_BUF = 20000;
 
     int sock = ServerConnector::_initClientSocket();
     sockaddr_in hint = ServerConnector::_initServerAddress(IPv4, port);
     ServerConnector::_establishConnection(sock, hint);
 
-    char buf[LENGTH_BUF];
-    std::string userInput;
-    while (true) {
-        std::cout << "> ";
-        std::getline(std::cin, userInput);
+    char bufReceived[LENGTH_BUF];
+    std::string dataToSend_str;
+    DataToSend dataToSend_obj;
 
-        if (userInput == "0")
+    while (true) {
+        try {
+            dataToSend_obj = ClientUI::getUserAction();
+            dataToSend_str = dataToSend_obj.serializeData();
+
+        } catch (std::runtime_error err) {
+            std::cout << err.what() << " | Try again" << std::endl;
+            continue;
+        }
+
+        if (dataToSend_obj.action == "0")
             break;
-        
-        int sendRes = send(sock, userInput.c_str(), userInput.size() + 1, 0);
-        if (sendRes == -1)
-        {
+
+        int sendRes = send(sock, dataToSend_str.c_str(), dataToSend_str.size() + 1, 0);
+
+        if (sendRes == -1) {
             std::cout << "Could not send to server! Whoops!\r\n";
             continue;
         }
 
-        //		Wait for response
-        memset(buf, 0, LENGTH_BUF);
-        int bytesReceived = recv(sock, buf, LENGTH_BUF, 0);
+        memset(bufReceived, 0, LENGTH_BUF);
+        int bytesReceived = recv(sock, bufReceived, LENGTH_BUF, 0);
+
         if (bytesReceived == -1)
-        {
             std::cout << "There was an error getting response from server\r\n";
-        }
-        else
-        {
-            //		Display response
-            std::cout << "SERVER> " << std::string(buf, bytesReceived) << "\r\n";
+        else {
+            try {
+                ClientUI::printServerAnswer(bufReceived, dataToSend_obj.action);
+            } catch(std::runtime_error err) {
+                std::cout << err.what() << std::endl;
+            }
         }
     }
 
-    //	Close the socket
+    std::cout << "Bye-bye ^-^" << std::endl;
     close(sock);
 }
-

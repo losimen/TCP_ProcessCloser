@@ -3,7 +3,8 @@
 
 int main()
 {
-    ServerConnector::connectToTheServer("127.0.0.1", 54026);
+    ServerConnector serverConnector;
+    serverConnector.connectToTheServer("127.0.0.1", 54000);
 
     return 0;
 }

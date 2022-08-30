@@ -9,7 +9,7 @@ add_executable(${PROJECT_NAME}
                                            main.cpp 
               ServerConnector.h            ServerConnector.cpp
               ClientUI.h                   ClientUI.cpp
-              ClientTypes.h
-              )
+              ClientTypes.h                ClientTypes.cpp
+              TagWorker.h                  TagWorker.cpp)
 endif(UNIX)
 
