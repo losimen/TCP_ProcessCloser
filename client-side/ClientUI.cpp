@@ -42,16 +42,30 @@ DataToSend ClientUI::getUserAction() {
 
 
 void ClientUI::_request_A_GET_ONE(const std::string &buffer) {
+    const char separator    = ' ';
+    const int width = 8;
+
     std::cout << "PID: " << TagWorker::getTagContent(buffer, "PID") << "\n"
-                      << "Process name: " << TagWorker::getTagContent(buffer, "name") << "\n";
+              << "Process name: " << TagWorker::getTagContent(buffer, "name") << "\n";
 }
 
 
 void ClientUI::_request_A_GET_ALL(const std::string &buffer) {
     std::vector<std::string> processList = TagWorker::getTagContentList(buffer, "pList", "item");
+    const char separator = ' ';
+    const int widthName = 20;
+    const int widthNum = 10;
 
-    for (auto process: processList)
-        ClientUI::_request_A_GET_ONE(process);
+    std::cout << std::left << std::setw(widthNum) << std::setfill(separator) << "PID";
+    std::cout << std::left << std::setw(widthName) << std::setfill(separator) << "Process name ";
+    std::cout << std::endl;
+
+    for (auto process: processList){
+        std::cout << std::left << std::setw(widthNum) << std::setfill(separator) << TagWorker::getTagContent(process, "PID");
+        std::cout << std::left << std::setw(widthName) << std::setfill(separator) << TagWorker::getTagContent(process, "name");
+        std::cout << std::endl;
+    }
+        
 }
 
 

@@ -35,12 +35,8 @@ std::vector<std::string> TagWorker::getTagContentList(const std::string &buffer,
 
     while (!dataList.empty()) {
         result.push_back(TagWorker::getTagContent(dataList, itemTagName));
-
         size_t endIt = dataList.find(tagEnd);
-
         dataList = dataList.substr(endIt + itemTagNameSize + 3);
-
-        std::cout << endIt + itemTagNameSize + 2 << " " << dataList.length() << " " << result.size() << std::endl;
     }
 
 

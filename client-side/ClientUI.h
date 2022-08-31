@@ -2,6 +2,7 @@
 #define CLIENT_UI_H
 
 #include <iostream>
+#include <iomanip>
 
 #include "ClientTypes.h"
 #include "TagWorker.h"
