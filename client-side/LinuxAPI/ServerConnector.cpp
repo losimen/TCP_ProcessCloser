@@ -30,10 +30,17 @@ void ServerConnector::_connectToTheServer(int &sock, sockaddr_in &hint) {
 void ServerConnector::establishConnection(const std::string &IPv4, const unsigned int port) {
     // TODO: make it dynamic
     const int LENGTH_BUF = 20000;
+    int sock;
 
-    int sock = ServerConnector::_initClientSocket();
-    sockaddr_in hint = ServerConnector::_initServerAddress(IPv4, port);
-    ServerConnector::_connectToTheServer(sock, hint);
+    try {
+        sock = ServerConnector::_initClientSocket();
+        sockaddr_in hint = ServerConnector::_initServerAddress(IPv4, port);
+        ServerConnector::_connectToTheServer(sock, hint);
+    }
+    catch (std::runtime_error err) {
+        std::cout << err.what();
+        return;
+    }
 
     char bufReceived[LENGTH_BUF];
     std::string dataToSend_str;
