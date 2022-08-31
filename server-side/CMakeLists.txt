@@ -22,5 +22,3 @@ if (UNIX)
     ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/ProcessDispatcher.cpp
     ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/Listener.cpp)
 endif (UNIX)
-
-# include_directories(${SHARED_INCLUDES})
