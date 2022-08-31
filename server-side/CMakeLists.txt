@@ -1,4 +1,3 @@
-set(APP_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 if (WIN32)
     set(SHARED_INCLUDES ${APP_ROOT_DIR} 
@@ -13,15 +12,15 @@ if (WIN32)
 endif (WIN32)
 
 if (UNIX)
-    set(SHARED_INCLUDES ${APP_ROOT_DIR} 
-                        ${APP_ROOT_DIR}/LinuxAPI)
-    add_executable(${PROJECT_NAME} 
-                                            main.cpp 
-                LinuxAPI/ProcessDispatcher.h LinuxAPI/ProcessDispatcher.cpp
-                LinuxAPI/Listener.h          LinuxAPI/Listener.cpp
-                HandlerRequest.h             HandlerRequest.cpp
-                ServerTypes.h                ServerTypes.cpp
-                TagWorker.h                  TagWorker.cpp)
+    list(APPEND myApp_INCLUDES ${CMAKE_CURRENT_LIST_DIR} 
+                               ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI)
+
+    list(APPEND myApp_SOURCES
+                                                           ${CMAKE_CURRENT_LIST_DIR}/main.cpp 
+    ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/ProcessDispatcher.h ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/ProcessDispatcher.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/Listener.h          ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/Listener.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/HandlerRequest.h             ${CMAKE_CURRENT_LIST_DIR}/HandlerRequest.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/ServerTypes.h                ${CMAKE_CURRENT_LIST_DIR}/ServerTypes.cpp)
 endif (UNIX)
 
-include_directories(${SHARED_INCLUDES})
+# include_directories(${SHARED_INCLUDES})
