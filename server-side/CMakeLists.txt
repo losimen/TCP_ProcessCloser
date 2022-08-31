@@ -16,11 +16,11 @@ if (UNIX)
                                ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI)
 
     list(APPEND myApp_SOURCES
-                                                           ${CMAKE_CURRENT_LIST_DIR}/main.cpp 
-    ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/ProcessDispatcher.h ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/ProcessDispatcher.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/Listener.h          ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/Listener.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/HandlerRequest.h             ${CMAKE_CURRENT_LIST_DIR}/HandlerRequest.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/ServerTypes.h                ${CMAKE_CURRENT_LIST_DIR}/ServerTypes.cpp)
+    ${CMAKE_CURRENT_LIST_DIR}/main.cpp 
+    ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/ProcessDispatcher.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/Listener.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/HandlerRequest.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/ServerTypes.cpp)
 endif (UNIX)
 
 # include_directories(${SHARED_INCLUDES})

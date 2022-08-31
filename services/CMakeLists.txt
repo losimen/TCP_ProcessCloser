@@ -1,4 +1,4 @@
 list(APPEND myApp_SOURCES 
-    ${CMAKE_CURRENT_LIST_DIR}/TagWorker.h                  ${CMAKE_CURRENT_LIST_DIR}/TagWorker.cpp)
+    ${CMAKE_CURRENT_LIST_DIR}/TagWorker.cpp)
 
 list(APPEND myApp_INCLUDES ${CMAKE_CURRENT_LIST_DIR})
