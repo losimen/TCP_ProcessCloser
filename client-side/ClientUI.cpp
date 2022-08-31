@@ -56,7 +56,7 @@ void ClientUI::_request_A_GET_ALL(const std::string &buffer) {
 
 
 void ClientUI::_request_A_KILL(const std::string &buffer) {
-
+    std::cout << "Info: " << TagWorker::getTagContent(buffer, "info") << "\n";
 }
 
 
