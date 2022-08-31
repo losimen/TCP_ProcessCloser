@@ -5,7 +5,7 @@ list(APPEND myApp_SOURCES ${CMAKE_CURRENT_LIST_DIR}/main.cpp
 if (WIN32)
     list(APPEND myApp_INCLUDES ${CMAKE_CURRENT_LIST_DIR} 
                                ${CMAKE_CURRENT_LIST_DIR}/WindowsAPI)
-    list(APPEND myApp_SOURCES ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/ServerConnector.cpp)
+    list(APPEND myApp_SOURCES ${CMAKE_CURRENT_LIST_DIR}/WindowsAPI/ServerConnector.cpp)
 
 endif (WIN32)
 

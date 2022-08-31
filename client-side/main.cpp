@@ -4,7 +4,7 @@
 int main()
 {
     ServerConnector serverConnector;
-    serverConnector.connectToTheServer("127.0.0.1", 54000);
+    serverConnector.establishConnection("127.0.0.1", 54000);
 
     return 0;
 }
