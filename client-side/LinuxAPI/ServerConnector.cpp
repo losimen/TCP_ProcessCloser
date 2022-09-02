@@ -23,7 +23,7 @@ void ServerConnector::_connectToTheServer(int &sock, sockaddr_in &hint) {
     int connectRes = connect(sock, (sockaddr*)&hint, sizeof(hint));
 
     if (connectRes == -1)
-        throw std::runtime_error("Connection refused");
+        throw std::runtime_error("Connection refused\n");
 }
 
 
@@ -52,6 +52,9 @@ void ServerConnector::establishConnection(const std::string &IPv4, const unsigne
             dataToSend_str = dataToSend_obj.serializeData();
 
         } catch (std::runtime_error err) {
+            std::cout << err.what() << " | Try again" << std::endl;
+            continue;
+        } catch (std::invalid_argument err) {
             std::cout << err.what() << " | Try again" << std::endl;
             continue;
         }

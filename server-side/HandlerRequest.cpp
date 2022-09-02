@@ -56,6 +56,8 @@ void HandlerRequest::_request_KILL(Answer &answer, const ReceivedData &receivedD
 Answer HandlerRequest::handleRequest(const ReceivedData &receivedData) {
     Answer answer;
 
+    std::cout << "REQUEST: " << receivedData.action << " | DATA: " << receivedData.action << std::endl;
+
     if (receivedData.action == ACTION_GET_ONE)
         HandlerRequest::_request_GET_ONE(answer, receivedData);
     else if (receivedData.action == ACTION_GET_ALL)
@@ -66,6 +68,8 @@ Answer HandlerRequest::handleRequest(const ReceivedData &receivedData) {
         answer.status = STATUS_FAIL;
         answer.data = TagWorker::createTag("info", "Invalid operation");
     }
+
+    std::cout << "RESPONCE: " << answer.serializeData() << std::endl;
 
     return answer;
 }
