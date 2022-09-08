@@ -53,6 +53,12 @@ void HandlerRequest::_request_KILL(Answer &answer, const ReceivedData &receivedD
 }
 
 
+void HandlerRequest::_request_STOP_SERVER(Answer &answer, const ReceivedData &receivedData) {
+    // answer.status = STATUS_OK;
+    // answer.data = TagWorker::createTag("info", "Server is stopped");
+}
+
+
 Answer HandlerRequest::handleRequest(const ReceivedData &receivedData) {
     Answer answer;
 
@@ -64,6 +70,8 @@ Answer HandlerRequest::handleRequest(const ReceivedData &receivedData) {
         HandlerRequest::_request_GET_ALL(answer, receivedData);
     else if (receivedData.action == ACTION_KILL)
         HandlerRequest::_request_KILL(answer, receivedData);
+    else if (receivedData.action == ACTION_STOP_SERVER)
+        HandlerRequest::_request_STOP_SERVER(answer, receivedData);
     else {
         answer.status = STATUS_FAIL;
         answer.data = TagWorker::createTag("info", "Invalid operation");

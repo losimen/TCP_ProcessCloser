@@ -12,6 +12,7 @@
 #define ACTION_KILL "kill"
 #define ACTION_GET_ONE "getProcess"
 #define ACTION_GET_ALL "getProcessList"
+#define ACTION_STOP_SERVER "stopServer"
 
 // stauts list:
 #define STATUS_OK "OK"

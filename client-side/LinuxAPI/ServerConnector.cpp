@@ -28,7 +28,6 @@ void ServerConnector::_connectToTheServer(int &sock, sockaddr_in &hint) {
 
 
 void ServerConnector::establishConnection(const std::string &IPv4, const unsigned int port) {
-    // TODO: make it dynamic
     const int LENGTH_BUF = 20000;
     int sock;
 

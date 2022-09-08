@@ -5,7 +5,7 @@ include(services/CMakeLists.txt)
 add_subdirectory(services)
 
 set(BUILD_SERVER FALSE)
-set(BUILD_CLIENT TRUE)
+set(BUILD_CLIENT FALSE)
 
 if(BUILD_CLIENT)
     include(client-side/CMakeLists.txt)

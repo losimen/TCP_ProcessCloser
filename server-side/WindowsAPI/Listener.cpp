@@ -51,7 +51,7 @@ SOCKET Listener::_waitForConnection(SOCKET& listening) {
 }
 
 
-Answer Listener::_processeRequest(const std::string& buffer) {
+Answer Listener::_processRequest(const std::string& buffer) {
 	Answer answer;
 
 	try {
@@ -71,8 +71,7 @@ Answer Listener::_processeRequest(const std::string& buffer) {
 
 
 void Listener::startListen(const std::string& IPv4, const unsigned int port) {
-	// TODO: make it dynamic
-	const int LENGTH_BUF = 4096;
+	const int LENGTH_BUF = 20000;
 
 	std::cout << "Running server on address: " << IPv4 << ":" << port << std::endl;
 

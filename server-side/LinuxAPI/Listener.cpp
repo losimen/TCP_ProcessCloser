@@ -43,7 +43,7 @@ int Listener::_waitForConnection(int &listening) {
 }
 
 
-Answer Listener::_processeRequest(const std::string &buffer) {
+Answer Listener::_processRequest(const std::string &buffer) {
     Answer answer;
     
     try {
@@ -62,7 +62,6 @@ Answer Listener::_processeRequest(const std::string &buffer) {
 
 
 void Listener::startListen(const std::string &IPv4, const unsigned int port) {
-    // TODO: make it dynamic
     const int LENGTH_BUF = 20000;
 
     std::cout << "Running server on address: " << IPv4 << ":" << port << std::endl;
@@ -84,7 +83,7 @@ void Listener::startListen(const std::string &IPv4, const unsigned int port) {
         }
 
         if (bytesReceived == 0) {
-            std::cout << "Client disconected" << std::endl;
+            std::cout << "Client disconnected" << std::endl;
             close(clientSocket);
             listening = Listener::_initListeningSocket(IPv4, port);
             clientSocket = Listener::_waitForConnection(listening);
@@ -92,7 +91,7 @@ void Listener::startListen(const std::string &IPv4, const unsigned int port) {
             continue;
         }
 
-        Answer answer = Listener::_processeRequest(std::string(buf, 0, bytesReceived));
+        Answer answer = Listener::_processRequest(std::string(buf, 0, bytesReceived));
         const std::string s_answer = answer.serializeData().c_str();
 
         memset(buf, 0, LENGTH_BUF);
