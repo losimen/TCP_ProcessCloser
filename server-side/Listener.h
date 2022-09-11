@@ -4,20 +4,14 @@
 #include <iostream>
 #include <string.h>
 #include <string>
-#include <sys/types.h>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <arpa/inet.h>
 
 #include "ServerTypes.h"
 #include "HandlerRequest.h"
+#include "NetworkAPI.h"
 
 class Listener {
 private:
     ReceivedData receivedData;
-    int _initListeningSocket(const std::string &IPv4, const unsigned int port);
-    int _waitForConnection(int &listening);
     Answer _processRequest(const std::string &buffer);
     
 public:

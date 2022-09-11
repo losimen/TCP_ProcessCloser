@@ -1,7 +1,8 @@
 
 list(APPEND myApp_SOURCES ${CMAKE_CURRENT_LIST_DIR}/main.cpp 
                           ${CMAKE_CURRENT_LIST_DIR}/HandlerRequest.cpp
-                          ${CMAKE_CURRENT_LIST_DIR}/ServerTypes.cpp)
+                          ${CMAKE_CURRENT_LIST_DIR}/ServerTypes.cpp
+                          ${CMAKE_CURRENT_LIST_DIR}/Listener.cpp)
 
 
 if (WIN32)
@@ -17,5 +18,5 @@ if (UNIX)
                                ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI)
 
     list(APPEND myApp_SOURCES  ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/ProcessDispatcher.cpp
-                               ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/Listener.cpp)
+                               ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/NetworkAPI.cpp)
 endif (UNIX)
