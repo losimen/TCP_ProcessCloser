@@ -1,7 +1,12 @@
 #include "NetworkAPI.h"
 
 
-void NetworkAPI::initWinSock() {
+NetworkAPI::NetworkAPI() {
+	NetworkAPI::_initWinSock();
+}
+
+
+void NetworkAPI::_initWinSock() {
 	WSADATA wsData;
 	WORD ver = MAKEWORD(2, 2);
 
@@ -46,11 +51,25 @@ SOCKET NetworkAPI::initListeningSocket(const std::string& IPv4, const unsigned i
 	hint.sin_port = htons(port);
 	hint.sin_addr.S_un.S_addr = INADDR_ANY;
 
-	bind(listening, (sockaddr*)&hint, sizeof(hint));
+	if (bind(listening, (sockaddr*)&hint, sizeof(hint)) == -1)
+		throw std::runtime_error(strerror(errno));
+
+	std::cout << "Running server on address: " << IPv4 << ":" << port << std::endl;
+
 	return listening;
 }
 
 
 int NetworkAPI::receiveData(SOCKET clientSocket, char* buf, int buf_len) {
 	return recv(clientSocket, buf, buf_len, 0);
+}
+
+
+void NetworkAPI::sendData(SOCKET clientSocket, const char* s_answer, const int s_answer_len) {
+	send(clientSocket, s_answer, s_answer_len + 1, 0);
+}
+
+
+void NetworkAPI::closeSocket(SOCKET &socket) {
+	closesocket(socket);
 }

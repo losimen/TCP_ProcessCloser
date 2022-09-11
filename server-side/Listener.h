@@ -14,9 +14,10 @@
 class Listener {
 private:
     ReceivedData receivedData;
+    NetworkAPI networkAPI;
 
     Answer _processRequest(const std::string &buffer);
-    bool _handleReceiveError(const SOCKET clientSocket, const int bytesReceived);
+    bool _handleReceiveError(SOCKET &clientSocket, const int bytesReceived);
     bool _handleClientDisconnected(SOCKET &clientSocket, SOCKET &listening, const std::string &IPv4, const int port, const int bytesReceived);
     
 public:

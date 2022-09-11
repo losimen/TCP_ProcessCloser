@@ -4,7 +4,7 @@ project(HTTP_PROCESS_CLOSER VERSION 0.1.0)
 include(services/CMakeLists.txt)
 add_subdirectory(services)
 
-set(BUILD_SERVER TRUE)
+set(BUILD_SERVER FALSE)
 set(BUILD_CLIENT FALSE)
 
 if(BUILD_CLIENT)

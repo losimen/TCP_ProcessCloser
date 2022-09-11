@@ -15,10 +15,13 @@ typedef int SOCKET;
 
 class NetworkAPI {
 public:
-    static SOCKET initListeningSocket(const std::string &IPv4, const unsigned int port);
-    static SOCKET waitForConnection(SOCKET &listening);
-    static int receiveData(SOCKET clientSocket, char *buf, int buf_len);
-    static void sendData(SOCKET clientSocket, const char *s_answer, const int s_answer_len);
+    NetworkAPI() = default;
+
+    SOCKET initListeningSocket(const std::string &IPv4, const unsigned int port);
+    SOCKET waitForConnection(SOCKET &listening);
+    int receiveData(SOCKET clientSocket, char *buf, int buf_len);
+    void sendData(SOCKET clientSocket, const char *s_answer, const int s_answer_len);
+    void closeSocket(SOCKET& socket);
 };
 
 #endif /*  NETWORK_API_H */

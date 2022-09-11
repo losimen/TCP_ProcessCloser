@@ -54,3 +54,7 @@ int NetworkAPI::receiveData(SOCKET clientSocket, char *buf, int buf_len) {
 void NetworkAPI::sendData(SOCKET clientSocket, const char *s_answer, const int s_answer_len) {
     send(clientSocket, s_answer, s_answer_len + 1, 0);
 }
+
+void NetworkAPI::closeSocket(SOCKET& socket) {
+    close(socket);
+}
