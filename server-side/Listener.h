@@ -1,13 +1,15 @@
 #ifndef LISTENER_H
 #define LISTENER_H
 
+
+#include "NetworkAPI.h"
+
 #include <iostream>
 #include <string.h>
 #include <string>
 
 #include "ServerTypes.h"
 #include "HandlerRequest.h"
-#include "NetworkAPI.h"
 
 class Listener {
 private:

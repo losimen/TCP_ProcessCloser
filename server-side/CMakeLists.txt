@@ -10,7 +10,7 @@ if (WIN32)
                                ${CMAKE_CURRENT_LIST_DIR}/WindowsAPI)
 
     list(APPEND myApp_SOURCES ${CMAKE_CURRENT_LIST_DIR}/WindowsAPI/ProcessDispatcher.cpp
-                              ${CMAKE_CURRENT_LIST_DIR}/WindowsAPI/Listener.cpp)
+                              ${CMAKE_CURRENT_LIST_DIR}/WindowsAPI/NetworkAPI.cpp)
 endif (WIN32)
 
 if (UNIX)

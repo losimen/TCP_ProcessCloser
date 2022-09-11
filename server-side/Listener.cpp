@@ -22,8 +22,7 @@ Answer Listener::_processRequest(const std::string &buffer) {
 void Listener::startListen(const std::string &IPv4, const unsigned int port) {
     const int LENGTH_BUF = 20000;
 
-    std::cout << "Running server on address: " << IPv4 << ":" << port << std::endl;
-
+    NetworkAPI::initWinSock();
     SOCKET listening = NetworkAPI::initListeningSocket(IPv4, port);
     SOCKET clientSocket = NetworkAPI::waitForConnection(listening);
     char buf[LENGTH_BUF];
@@ -34,7 +33,7 @@ void Listener::startListen(const std::string &IPv4, const unsigned int port) {
         int bytesReceived = NetworkAPI::receiveData(clientSocket, buf, LENGTH_BUF);
 
         if (bytesReceived == -1) {
-            close(clientSocket);
+            closesocket(clientSocket);
             throw std::runtime_error(strerror(errno));
             
             break;
@@ -42,7 +41,7 @@ void Listener::startListen(const std::string &IPv4, const unsigned int port) {
 
         if (bytesReceived == 0) {
             std::cout << "Client disconnected" << std::endl;
-            close(clientSocket);
+            closesocket(clientSocket);
             listening = NetworkAPI::initListeningSocket(IPv4, port);
             clientSocket = NetworkAPI::waitForConnection(listening);
 
