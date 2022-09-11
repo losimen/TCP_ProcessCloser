@@ -3,6 +3,7 @@
 
 int NetworkAPI::initListeningSocket(const std::string &IPv4, const unsigned int port) {
     int listening = socket(AF_INET, SOCK_STREAM, 0);
+
     if (listening == -1)
         throw std::runtime_error(strerror(errno));
 
@@ -14,6 +15,8 @@ int NetworkAPI::initListeningSocket(const std::string &IPv4, const unsigned int 
     if (bind(listening, (sockaddr*)&hint, sizeof(hint)) == -1)
         throw std::runtime_error(strerror(errno));
 
+    std::cout << "Running server on address: " << IPv4 << ":" << port << std::endl;
+    
     return listening;
 }
 
@@ -45,4 +48,9 @@ int NetworkAPI::waitForConnection(SOCKET &listening) {
 
 int NetworkAPI::receiveData(SOCKET clientSocket, char *buf, int buf_len) {
     return recv(clientSocket, buf, buf_len, 0);
+}
+
+
+void NetworkAPI::sendData(SOCKET clientSocket, const char *s_answer, const int s_answer_len) {
+    send(clientSocket, s_answer, s_answer_len + 1, 0);
 }
