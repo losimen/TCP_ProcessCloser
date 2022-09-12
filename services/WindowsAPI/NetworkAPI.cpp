@@ -86,7 +86,7 @@ void NetworkAPI::connectToTheServer(SOCKET& sock, sockaddr_in& hint) {
 	if (connResult == SOCKET_ERROR) {
 		closesocket(sock);
 		WSACleanup();
-		throw std::runtime_error("Connection refused");
+		throw std::runtime_error("Connection refused\n");
 	}
 }
 

@@ -21,6 +21,34 @@ int NetworkAPI::initListeningSocket(const std::string &IPv4, const unsigned int 
 }
 
 
+SOCKET NetworkAPI::initClientSocket() {
+    int sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (sock == -1)
+        throw std::runtime_error(strerror(errno));
+    
+    return sock;
+}
+
+
+sockaddr_in NetworkAPI::initServerAddress(const std::string& IPv4, const unsigned int port) {
+    sockaddr_in hint;
+    hint.sin_family = AF_INET;
+    hint.sin_port = htons(port);
+    inet_pton(AF_INET, IPv4.c_str(), &hint.sin_addr);
+
+    return hint;
+}
+
+
+void NetworkAPI::connectToTheServer(SOCKET& sock, sockaddr_in& hint) {
+    int connectRes = connect(sock, (sockaddr*)&hint, sizeof(hint));
+
+    if (connectRes == -1)
+        throw std::runtime_error("Connection refused\n");
+
+}
+
+
 int NetworkAPI::waitForConnection(SOCKET &listening) {
     std::cout << "Waiting for the connection " << std::endl;
 
@@ -51,9 +79,10 @@ int NetworkAPI::receiveData(SOCKET clientSocket, char *buf, int buf_len) {
 }
 
 
-void NetworkAPI::sendData(SOCKET clientSocket, const char *s_answer, const int s_answer_len) {
-    send(clientSocket, s_answer, s_answer_len + 1, 0);
+int NetworkAPI::sendData(SOCKET clientSocket, const char *s_answer, const int s_answer_len) {
+    return send(clientSocket, s_answer, s_answer_len + 1, 0);
 }
+
 
 void NetworkAPI::closeSocket(SOCKET& socket) {
     close(socket);
