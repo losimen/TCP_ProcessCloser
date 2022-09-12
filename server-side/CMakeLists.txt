@@ -1,7 +1,6 @@
 
 list(APPEND myApp_SOURCES ${CMAKE_CURRENT_LIST_DIR}/main.cpp 
                           ${CMAKE_CURRENT_LIST_DIR}/HandlerRequest.cpp
-                          ${CMAKE_CURRENT_LIST_DIR}/ServerTypes.cpp
                           ${CMAKE_CURRENT_LIST_DIR}/Listener.cpp)
 
 

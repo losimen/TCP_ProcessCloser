@@ -1,3 +1,17 @@
-list(APPEND myApp_SOURCES ${CMAKE_CURRENT_LIST_DIR}/TagWorker.cpp)
+list(APPEND myApp_SOURCES ${CMAKE_CURRENT_LIST_DIR}/TagWorker.cpp
+						  ${CMAKE_CURRENT_LIST_DIR}/Types.cpp)
 
 list(APPEND myApp_INCLUDES ${CMAKE_CURRENT_LIST_DIR})
+
+
+if (WIN32)
+    list(APPEND myApp_INCLUDES ${CMAKE_CURRENT_LIST_DIR}/WindowsAPI)
+
+    list(APPEND myApp_SOURCES ${CMAKE_CURRENT_LIST_DIR}/WindowsAPI/NetworkAPI.cpp)
+endif (WIN32)
+
+if (UNIX)
+    list(APPEND myApp_INCLUDES ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI)
+
+    list(APPEND myApp_SOURCES ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/NetworkAPI.cpp)
+endif(UNIX)

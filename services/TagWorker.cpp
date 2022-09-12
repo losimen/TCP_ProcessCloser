@@ -39,6 +39,5 @@ std::vector<std::string> TagWorker::getTagContentList(const std::string &buffer,
         dataList = dataList.substr(endIt + itemTagNameSize + 3);
     }
 
-
     return result;
 }

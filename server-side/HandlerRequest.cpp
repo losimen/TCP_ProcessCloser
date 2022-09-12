@@ -1,7 +1,7 @@
 #include "HandlerRequest.h"
 
 
-void HandlerRequest::_request_GET_ONE(Answer &answer, const ReceivedData &receivedData) {
+void HandlerRequest::_request_GET_ONE(ClientData &answer, const ServerData &receivedData) {
     Process process;
 
     try {
@@ -18,7 +18,7 @@ void HandlerRequest::_request_GET_ONE(Answer &answer, const ReceivedData &receiv
 }
 
 
-void HandlerRequest::_request_GET_ALL(Answer &answer, const ReceivedData &receivedData) {
+void HandlerRequest::_request_GET_ALL(ClientData &answer, const ServerData &receivedData) {
     ProcessList processList;
     try {
         processList = ProcessDispatcher::getListOfProcesses();
@@ -42,7 +42,7 @@ void HandlerRequest::_request_GET_ALL(Answer &answer, const ReceivedData &receiv
 }
 
 
-void HandlerRequest::_request_KILL(Answer &answer, const ReceivedData &receivedData) {
+void HandlerRequest::_request_KILL(ClientData &answer, const ServerData &receivedData) {
     if (ProcessDispatcher::killProcess(std::stoi(receivedData.data))) {
         answer.status = STATUS_OK;
         answer.data = TagWorker::createTag("info", "Success");
@@ -53,14 +53,14 @@ void HandlerRequest::_request_KILL(Answer &answer, const ReceivedData &receivedD
 }
 
 
-void HandlerRequest::_request_STOP_SERVER(Answer &answer, const ReceivedData &receivedData) {
+void HandlerRequest::_request_STOP_SERVER(ClientData &answer, const ServerData &receivedData) {
     // answer.status = STATUS_OK;
     // answer.data = TagWorker::createTag("info", "Server is stopped");
 }
 
 
-Answer HandlerRequest::handleRequest(const ReceivedData &receivedData) {
-    Answer answer;
+ClientData HandlerRequest::handleRequest(const ServerData &receivedData) {
+    ClientData answer;
 
     std::cout << "REQUEST: " << receivedData.action << " | DATA: " << receivedData.action << std::endl;
 

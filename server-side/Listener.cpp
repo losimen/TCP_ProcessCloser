@@ -1,8 +1,8 @@
 #include "Listener.h"
 
 
-Answer Listener::_processRequest(const std::string &buffer) {
-    Answer answer;
+ClientData Listener::_processRequest(const std::string &buffer) {
+    ClientData answer;
     
     try {
         Listener::receivedData.parseData(buffer);
@@ -72,7 +72,7 @@ void Listener::startListen(const std::string &IPv4, const unsigned int port) {
             continue;
         }
 
-        Answer answer = Listener::_processRequest(std::string(buf, 0, bytesReceived));
+        ClientData answer = Listener::_processRequest(std::string(buf, 0, bytesReceived));
         
         const std::string s_answer = answer.serializeData();
         Listener::networkAPI.sendData(clientSocket, s_answer.c_str(), s_answer.length());

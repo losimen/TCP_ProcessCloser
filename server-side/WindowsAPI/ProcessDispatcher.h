@@ -11,7 +11,7 @@
 #include <tchar.h>
 #include <psapi.h>
 
-#include "ServerTypes.h"
+#include "Types.h"
 
 
 class ProcessDispatcher {   

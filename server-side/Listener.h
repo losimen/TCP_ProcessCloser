@@ -8,15 +8,15 @@
 #include <string.h>
 #include <string>
 
-#include "ServerTypes.h"
+#include "Types.h"
 #include "HandlerRequest.h"
 
 class Listener {
 private:
-    ReceivedData receivedData;
+    ServerData receivedData;
     NetworkAPI networkAPI;
 
-    Answer _processRequest(const std::string &buffer);
+    ClientData _processRequest(const std::string &buffer);
     bool _handleReceiveError(SOCKET &clientSocket, const int bytesReceived);
     bool _handleClientDisconnected(SOCKET &clientSocket, SOCKET &listening, const std::string &IPv4, const int port, const int bytesReceived);
     

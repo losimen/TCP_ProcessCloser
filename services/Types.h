@@ -14,7 +14,7 @@
 #define ACTION_GET_ALL "getProcessList"
 #define ACTION_STOP_SERVER "stopServer"
 
-// stauts list:
+// status list:
 #define STATUS_OK "OK"
 #define STATUS_FAIL "FAIL"
 
@@ -24,11 +24,10 @@ struct Process {
     std::string name;
 };
 
-
 typedef std::vector<Process> ProcessList;
 
 
-struct Answer {
+struct ClientData {
     std::string status;
     std::string data;
 
@@ -36,7 +35,7 @@ struct Answer {
 };
 
 
-struct ReceivedData {
+struct ServerData {
     static const std::string F_DATA;
     static const std::string F_ACTION;
 
@@ -44,6 +43,8 @@ struct ReceivedData {
     std::string data;
 
     void parseData(std::string buffer);
+    std::string serializeData();
 };
+
 
 #endif //LISTENER_H
