@@ -82,5 +82,11 @@ void Listener::startListen(const std::string &IPv4, const unsigned int port) {
         
         const std::string s_answer = answer.serializeData();
         Listener::networkAPI.sendData(clientSocket, s_answer.c_str(), s_answer.length());
+
+        if (answer.status == STATUS_HALT)
+            break;
     }
+
+    networkAPI.closeSocket(clientSocket);
+    std::cout << "Bye-bye ^-^" << std::endl;
 }

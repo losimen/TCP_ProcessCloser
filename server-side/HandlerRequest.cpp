@@ -54,8 +54,8 @@ void HandlerRequest::_request_KILL(ClientData &answer, const ServerData &receive
 
 
 void HandlerRequest::_request_STOP_SERVER(ClientData &answer, const ServerData &receivedData) {
-    // answer.status = STATUS_OK;
-    // answer.data = TagWorker::createTag("info", "Server is stopped");
+    answer.status = STATUS_HALT;
+    answer.data = TagWorker::createTag("info", "Server is stopped");
 }
 
 
