@@ -1,5 +1,9 @@
 #include "ClientUI.h"
 
+
+const int ClientUI::MAX_ACTION_NUM = 3;
+
+
 void ClientUI::_printUserMenu() {
     std::cout << "\n"
               << "---MAIN MENU---\n"
@@ -22,14 +26,25 @@ std::string ClientUI::_askUserPID() {
 }
 
 
-DataToSend ClientUI::getUserAction() {
-    DataToSend dataToSend;
+ServerData ClientUI::getUserAction() {
+    ServerData dataToSend;
 
     std::string userInputData;
     std::string userInputAction;
 
     ClientUI::_printUserMenu();
     std::getline(std::cin, userInputAction);
+
+    try {
+        int userInputAction_num;
+        userInputAction_num = std::stoi(userInputAction);
+        if (userInputAction_num >= MAX_ACTION_NUM) {
+            throw std::invalid_argument("");
+        }
+    }
+    catch (std::invalid_argument& err) {
+        std::cout << "Invalid user input" << std::endl;
+    }
 
     if (userInputAction == "2" || userInputAction == "3")
         userInputData = ClientUI::_askUserPID();
@@ -76,8 +91,14 @@ void ClientUI::_request_A_KILL(const std::string &buffer) {
 
 void ClientUI::printServerAnswer(std::string buffer, const std::string &userAction) {
     std::cout << "\n---Server responce---\n";
+    std::string status;
 
-    std::string status = TagWorker::getTagContent(buffer, "status");
+    try {
+        status  = TagWorker::getTagContent(buffer, "status");
+    }
+    catch (std::runtime_error& err) {
+        std::cout << "Invalid server receive format" << std::endl;
+    }
 
     if (status == STATUS_OK) {
         if (userAction == ACTION_GET_ONE)

@@ -4,12 +4,14 @@
 #include <iostream>
 #include <iomanip>
 
-#include "ClientTypes.h"
+#include "Types.h"
 #include "TagWorker.h"
 
 
 class ClientUI {
 private:
+    static const int MAX_ACTION_NUM;
+        
     static void _printUserMenu();
     static std::string _askUserPID();
 
@@ -19,7 +21,7 @@ private:
 
 
 public:
-    static DataToSend getUserAction();
+    static ServerData getUserAction();
     static void printServerAnswer(std::string buffer, const std::string &userAction);
 
 };
