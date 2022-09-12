@@ -35,15 +35,10 @@ ServerData ClientUI::getUserAction() {
     ClientUI::_printUserMenu();
     std::getline(std::cin, userInputAction);
 
-    try {
-        int userInputAction_num;
-        userInputAction_num = std::stoi(userInputAction);
-        if (userInputAction_num >= MAX_ACTION_NUM) {
-            throw std::invalid_argument("");
-        }
-    }
-    catch (std::invalid_argument& err) {
-        std::cout << "Invalid user input" << std::endl;
+    int userInputAction_num;
+    userInputAction_num = std::stoi(userInputAction);
+    if (userInputAction_num >= MAX_ACTION_NUM) {
+        throw std::invalid_argument("");
     }
 
     if (userInputAction == "2" || userInputAction == "3")
