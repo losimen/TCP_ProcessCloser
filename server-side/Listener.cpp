@@ -21,11 +21,12 @@ ClientData Listener::_processRequest(const std::string &buffer) {
 
 bool Listener::_handleReceiveError(SOCKET &clientSocket, const int bytesReceived) {
     if (bytesReceived == -1) {
+        std::cout << strerror(errno) << std::endl;
         Listener::networkAPI.closeSocket(clientSocket);
-        return true;
+        return false;
     }
 
-    return false;
+    return true;
 }
 
 
@@ -36,25 +37,33 @@ bool Listener::_handleClientDisconnected(SOCKET &clientSocket, SOCKET &listening
         listening = Listener::networkAPI.initListeningSocket(IPv4, port);
         clientSocket = Listener::networkAPI.waitForConnection(listening);
 
-        return true;
+        return false;
     }
     
-    return false;
+    return true;
+}
+
+
+bool Listener::_initNetworkAPI(SOCKET &listening, SOCKET &clientSocket, const std::string IPv4, const unsigned int port) {
+    try {
+        listening = Listener::networkAPI.initListeningSocket(IPv4, port);
+        clientSocket = Listener::networkAPI.waitForConnection(listening);
+        return true;
+    }
+    catch (const std::runtime_error& err) {
+        std::cout << strerror(errno) << std::endl;
+        return false;
+    }
 }
 
 
 void Listener::startListen(const std::string &IPv4, const unsigned int port) {
     const int LENGTH_BUF = 20000;
-    SOCKET listening;
+    SOCKET listeningSocket;
     SOCKET clientSocket;
 
-    try {
-        listening = Listener::networkAPI.initListeningSocket(IPv4, port);
-        clientSocket = Listener::networkAPI.waitForConnection(listening);
-    } catch (const std::runtime_error &err) {
-        std::cout << strerror(errno) << std::endl;
+    if (!Listener::_initNetworkAPI(listeningSocket, clientSocket, IPv4, port))
         return;
-    }
 
     char buf[LENGTH_BUF];
 
@@ -63,15 +72,12 @@ void Listener::startListen(const std::string &IPv4, const unsigned int port) {
         memset(buf, 0, LENGTH_BUF);
         int bytesReceived = Listener::networkAPI.receiveData(clientSocket, buf, LENGTH_BUF);
 
-        if (Listener::_handleReceiveError(clientSocket, bytesReceived)) {
-            std::cout << strerror(errno) << std::endl; 
+        if (!Listener::_handleReceiveError(clientSocket, bytesReceived))
             break;
-        } 
 
-        if (Listener::_handleClientDisconnected(clientSocket, listening, IPv4, port, bytesReceived)) {
+        if (!Listener::_handleClientDisconnected(clientSocket, listeningSocket, IPv4, port, bytesReceived))
             continue;
-        }
-
+        
         ClientData answer = Listener::_processRequest(std::string(buf, 0, bytesReceived));
         
         const std::string s_answer = answer.serializeData();

@@ -8,14 +8,12 @@ if (WIN32)
     list(APPEND myApp_INCLUDES ${CMAKE_CURRENT_LIST_DIR} 
                                ${CMAKE_CURRENT_LIST_DIR}/WindowsAPI)
 
-    list(APPEND myApp_SOURCES ${CMAKE_CURRENT_LIST_DIR}/WindowsAPI/ProcessDispatcher.cpp
-                              ${CMAKE_CURRENT_LIST_DIR}/WindowsAPI/NetworkAPI.cpp)
+    list(APPEND myApp_SOURCES ${CMAKE_CURRENT_LIST_DIR}/WindowsAPI/ProcessDispatcher.cpp)
 endif (WIN32)
 
 if (UNIX)
     list(APPEND myApp_INCLUDES ${CMAKE_CURRENT_LIST_DIR} 
                                ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI)
 
-    list(APPEND myApp_SOURCES  ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/ProcessDispatcher.cpp
-                               ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/NetworkAPI.cpp)
+    list(APPEND myApp_SOURCES  ${CMAKE_CURRENT_LIST_DIR}/LinuxAPI/ProcessDispatcher.cpp)
 endif (UNIX)

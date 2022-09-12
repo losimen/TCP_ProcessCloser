@@ -16,7 +16,7 @@ private:
 	bool _handleSendError(SOCKET &clientSocket, const std::string &dataToSend);
 	bool _handleUserAction();
 
-	bool _establishConnection(SOCKET &clientSocket, const std::string &IPv4, const unsigned int port);
+	bool _initNetworkAPI(SOCKET &clientSocket, const std::string &IPv4, const unsigned int port);
 
 public:
 	void startCommunication(const std::string &IPv4, const unsigned int port);
