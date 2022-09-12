@@ -18,7 +18,7 @@ private:
     static void _request_A_GET_ONE(const std::string &buffer);
     static void _request_A_GET_ALL(const std::string &buffer);
     static void _request_A_KILL(const std::string &buffer);
-
+    static void _request_A_STOP_SERVER(const std::string& buffer);
 
 public:
     static ServerData getUserAction();

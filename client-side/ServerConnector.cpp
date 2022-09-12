@@ -79,6 +79,9 @@ void ServerConnector::startCommunication(const std::string &IPv4, const unsigned
             continue;
 
         ClientUI::printServerAnswer(bufReceived, ServerConnector::dataToSend_obj.action);
+
+        if (dataToSend_obj.action == ACTION_STOP_SERVER)
+            break;
     }
 
     std::cout << "Bye-bye ^-^" << std::endl;

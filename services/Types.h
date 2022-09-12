@@ -18,6 +18,7 @@
 // status list:
 #define STATUS_OK "OK"
 #define STATUS_FAIL "FAIL"
+#define STATUS_STOP_SERVER  "HALT"
 
 
 struct Process {

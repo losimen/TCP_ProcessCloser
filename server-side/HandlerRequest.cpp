@@ -54,7 +54,7 @@ void HandlerRequest::_request_KILL(ClientData &answer, const ServerData &receive
 
 
 void HandlerRequest::_request_STOP_SERVER(ClientData &answer, const ServerData &receivedData) {
-    answer.status = STATUS_HALT;
+    answer.status = STATUS_STOP_SERVER;
     answer.data = TagWorker::createTag("info", "Server is stopped");
 }
 
@@ -62,7 +62,7 @@ void HandlerRequest::_request_STOP_SERVER(ClientData &answer, const ServerData &
 ClientData HandlerRequest::handleRequest(const ServerData &receivedData) {
     ClientData answer;
 
-    std::cout << "REQUEST: " << receivedData.action << " | DATA: " << receivedData.action << std::endl;
+    std::cout << "REQUEST: " << receivedData.action << " | DATA: " << receivedData.data << std::endl;
 
     if (receivedData.action == ACTION_GET_ONE)
         HandlerRequest::_request_GET_ONE(answer, receivedData);

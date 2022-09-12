@@ -41,7 +41,6 @@ ServerData ClientUI::getUserAction() {
     if (userInputAction_num > MAX_ACTION_NUM)
         throw std::invalid_argument("invalid argument");
 
-
     if (userInputAction == "2" || userInputAction == "3")
         userInputData = ClientUI::_askUserPID();
 
@@ -85,6 +84,11 @@ void ClientUI::_request_A_KILL(const std::string &buffer) {
 }
 
 
+void ClientUI::_request_A_STOP_SERVER(const std::string &buffer) {
+    std::cout << "Info: " << TagWorker::getTagContent(buffer, "info") << "\n";
+}
+
+
 void ClientUI::printServerAnswer(std::string buffer, const std::string &userAction) {
     std::cout << "\n---Server responce---\n";
     std::string status;
@@ -96,13 +100,15 @@ void ClientUI::printServerAnswer(std::string buffer, const std::string &userActi
         std::cout << "Invalid server receive format" << std::endl;
     }
 
-    if (status == STATUS_OK) {
+    if (status != STATUS_FAIL) {
         if (userAction == ACTION_GET_ONE)
             ClientUI::_request_A_GET_ONE(buffer);
         else if (userAction == ACTION_GET_ALL)
             ClientUI::_request_A_GET_ALL(buffer);
         else if (userAction == ACTION_KILL)
             ClientUI::_request_A_KILL(buffer);
+        else if (userAction == ACTION_STOP_SERVER)
+            ClientUI::_request_A_STOP_SERVER(buffer);
 
     } else {
         std::cout << "Server error: " << TagWorker::getTagContent(buffer, "info") << "\n";
