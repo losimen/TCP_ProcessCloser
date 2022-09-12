@@ -10,7 +10,7 @@
 #include <dirent.h>
 #include <sys/types.h>
 
-#include "ServerTypes.h"
+#include "Types.h"
 
 
 class ProcessDispatcher {   
