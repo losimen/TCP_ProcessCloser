@@ -35,7 +35,7 @@ bool ServerConnector::_handleUserAction() {
 }
 
 
-bool ServerConnector::_establishConnection(SOCKET &clientSocket, const std::string &IPv4, const unsigned int port) {
+bool ServerConnector::_initNetworkAPI(SOCKET &clientSocket, const std::string &IPv4, const unsigned int port) {
     try {
         clientSocket = networkAPI.initClientSocket();
         sockaddr_in hint = networkAPI.initServerAddress(IPv4, port);
@@ -55,7 +55,7 @@ void ServerConnector::startCommunication(const std::string &IPv4, const unsigned
     const int LENGTH_BUF = 20000;
     SOCKET sock;
 
-    if (!ServerConnector::_establishConnection(sock, IPv4, port))
+    if (!ServerConnector::_initNetworkAPI(sock, IPv4, port))
         return;
 
     char bufReceived[LENGTH_BUF];
