@@ -1,7 +1,7 @@
 #include "ClientUI.h"
 
 
-const int ClientUI::MAX_ACTION_NUM = 3;
+const int ClientUI::MAX_ACTION_NUM = 4;
 
 
 void ClientUI::_printUserMenu() {
@@ -10,6 +10,7 @@ void ClientUI::_printUserMenu() {
               << "1-> Get list of processes\n"
               << "2-> Get process by id\n"
               << "3-> Kill process\n"
+              << "4-> Stop server\n"
               << "0-> Exit programm\n"
               << ">> ";
 }
@@ -37,9 +38,9 @@ ServerData ClientUI::getUserAction() {
 
     int userInputAction_num;
     userInputAction_num = std::stoi(userInputAction);
-    if (userInputAction_num >= MAX_ACTION_NUM) {
-        throw std::invalid_argument("");
-    }
+    if (userInputAction_num > MAX_ACTION_NUM)
+        throw std::invalid_argument("invalid argument");
+
 
     if (userInputAction == "2" || userInputAction == "3")
         userInputData = ClientUI::_askUserPID();
@@ -52,7 +53,7 @@ ServerData ClientUI::getUserAction() {
 
 
 void ClientUI::_request_A_GET_ONE(const std::string &buffer) {
-    const char separator    = ' ';
+    const char separator = ' ';
     const int width = 8;
 
     std::cout << "PID: " << TagWorker::getTagContent(buffer, "PID") << "\n"
